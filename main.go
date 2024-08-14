@@ -51,7 +51,7 @@ func main() {
 
 func getTasks(c *gin.Context) {
 	var tasks []Task
-	if err := db.Where("isDeleted = ?", false).Find(&tasks).Error; err != nil {
+	if err := db.Where("IsDeleted = ?", false).Find(&tasks).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
@@ -123,6 +123,6 @@ func deleteTask(c *gin.Context) {
 		return
 	}
 
-	db.Model(&task).Update("isDeleted", true)
+	db.Model(&task).Update("IsDeleted", true)
 	c.JSON(http.StatusOK, gin.H{"message": "Task deleted successfully"})
 }
